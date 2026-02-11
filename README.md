@@ -76,7 +76,7 @@ The project is architected as a decoupled micro-service environment:
 
 ## 📸 Interface ScreenShot
 
-![Mockup](/images/screenshot.png)
+![screenshot](/images/screenshot.png)
 _Professional native Streamlit interface featuring intuitive grouping and real-time risk assessment metrics._
 
 ---
