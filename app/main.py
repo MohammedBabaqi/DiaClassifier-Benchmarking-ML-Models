@@ -18,25 +18,50 @@ st.markdown("""
 ---
 """, unsafe_allow_html=True)
 
-# API Configuration
-# Use environment variable for flexibility, default to localhost
-API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
-
 # Sidebar for metadata and status
 with st.sidebar:
-    st.title("System Status")
+    st.title("System Configuration")
+    
+    # Environment Selection
+    env_mode = st.radio(
+        "Select Engine Environment",
+        ["Production (Render)", "Local / Development"],
+        help="Choose 'Production' for the cloud API or 'Local' if running the FastAPI server locally."
+    )
+    
+    if env_mode == "Production (Render)":
+        API_URL = "https://diaclassifier-api.onrender.com"
+    else:
+        # Allow custom URL or default to localhost
+        API_URL = st.text_input("Engine URL", value=os.getenv("API_URL", "http://127.0.0.1:8000"))
+    
+    # Clean the URL
+    API_URL = API_URL.strip().rstrip("/")
+
+    st.divider()
+    st.markdown("### System Status")
     
     try:
-        metadata_res = requests.get(f"{API_URL}/metadata", timeout=2)
+        # Avoid proxy issues by specifying empty proxies
+        metadata_res = requests.get(
+            f"{API_URL}/metadata", 
+            timeout=5, 
+            proxies={'http': None, 'https': None}
+        )
         if metadata_res.status_code == 200:
             meta = metadata_res.json()
-            st.success("✅ Engine Online")
-            st.metric("Model Version", meta['version'])
-            st.caption(f"**Archive:** {meta['model_name']}")
+            st.success(f"✅ Engine Online")
+            st.metric("Model Version", meta.get('version', 'N/A'))
+            st.caption(f"**Archive:** {meta.get('model_name', 'N/A')}")
         else:
-            st.error("❌ Engine Error")
-    except:
+            st.error(f"❌ Engine Error ({metadata_res.status_code})")
+    except requests.exceptions.ConnectionError as e:
         st.error("❌ Connection Failed")
+        st.caption(f"Could not reach engine at {API_URL}.")
+        st.info("💡 **Tip:** If the backend is running, try switching the URL between `http://127.0.0.1:8000` and `http://localhost:8000` or disable your VPN.")
+        st.code(f"Error detail: {str(e)}")
+    except Exception as e:
+        st.error(f"❌ unexpected Error: {str(e)}")
     
     st.divider()
     st.info("""
@@ -46,8 +71,11 @@ with st.sidebar:
     
     st.divider()
     st.markdown("### 🔗 Connect")
+    st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/MohammedBabaqi/DiaClassifier-Benchmarking-ML-Models)")
     st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/MohammedBabaqi)")
     st.markdown("[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/mohammedbabaqi/)")
+
+    st.info("💡 **Local Run:** Download this repository to run the engine locally for faster performance.")
 
 # Main UI Structure using Tabs
 tab1, tab2 = st.tabs(["📋 Patient Assessment", "ℹ️ About the Model"])
@@ -106,7 +134,11 @@ with tab1:
 
         try:
             with st.spinner("Analyzing data through XGBoost pipeline..."):
-                response = requests.post(f"{API_URL}/predict", json=payload)
+                response = requests.post(
+                    f"{API_URL}/predict", 
+                    json=payload,
+                    proxies={'http': None, 'https': None}
+                )
             
             if response.status_code == 200:
                 res = response.json()
@@ -168,6 +200,7 @@ st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #7f8c8d;">
     © 2026 DiaClassifier Professional Suite | Prepared by <b>Mohammed Babaqi</b><br>
+    <a href="https://github.com/MohammedBabaqi/DiaClassifier-Benchmarking-ML-Models" target="_blank">Repository</a> | 
     <a href="https://github.com/MohammedBabaqi" target="_blank">GitHub</a> | 
     <a href="https://www.linkedin.com/in/mohammedbabaqi/" target="_blank">LinkedIn</a>
 </div>

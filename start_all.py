@@ -9,7 +9,7 @@ def start_services():
     # 1. Start FastAPI Backend
     print("📦 Launching FastAPI Backend (Port 8000)...")
     backend_process = subprocess.Popen(
-        [sys.executable, "-m", "uvicorn", "api.main:app", "--host", "127.0.0.1", "--port", "8000"],
+        [sys.executable, "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True
