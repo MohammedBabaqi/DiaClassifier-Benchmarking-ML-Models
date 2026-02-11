@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+.git/
+.gitignore
+.dockerignore
+notebooks/
+Data/
+.gemini/
+.agent/
+*.md
+!README.md

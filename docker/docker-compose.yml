@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  diaclassifier:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+      - "8501:8501"
+    environment:
+      - API_URL=http://localhost:8000
+    restart: unless-stopped

@@ -6,3 +6,9 @@ scikit-learn
 fastapi
 uvicorn
 streamlit
+xgboost
+requests
+shap
+imbalanced-learn
+joblib
+optuna

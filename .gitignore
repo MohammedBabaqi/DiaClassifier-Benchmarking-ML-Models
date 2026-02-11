@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Project specifics
+.agent/
+.gemini/
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
