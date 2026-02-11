@@ -1,11 +1,12 @@
 # 🩺 DiaClassifier: Advanced Diabetes Risk Intelligence
 
-
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-informational?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-Models-orange)](https://xgboost.readthedocs.io/)
 [![Docker](https://img.shields.io/badge/Docker-Enabled-blue?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Streamlit App](https://img.shields.io/badge/Streamlit--Cloud-Live--App-FF4B4B?logo=streamlit&logoColor=white)](https://diaclassifier.streamlit.app/)
+[![FastAPI Render](https://img.shields.io/badge/Render-Live--API-informational?logo=render&logoColor=white)](https://diaclassifier-api.onrender.com/docs)
 
 **DiaClassifier** is a professional-grade end-to-end machine learning ecosystem designed for precision diabetes risk assessment. By leveraging state-of-the-art classification algorithms, class-balancing techniques (SMOTE), and model calibration, DiaClassifier transforms clinical metrics into actionable diagnostic insights.
 
@@ -16,6 +17,18 @@
 The goal is to predict whether a patient has diabetes based on medical features and lifestyle indicators. This project identifies the optimal pipeline for predictive accuracy and clinical reliability by benchmarking multiple ML models against various feature configurations.
 
 DiaClassifier's core philosophy is **Recall-First Detection**: we prioritize minimizing false negatives to ensure at-risk patients are flagged for clinical review.
+
+---
+
+## 🌐 Live Deployment
+
+You can access the live versions of the ecosystem here:
+
+- **Frontend App**: [diaclassifier.streamlit.app](https://diaclassifier.streamlit.app/)
+- **API Documentation**: [diaclassifier-api.onrender.com/docs](https://diaclassifier-api.onrender.com/docs)
+
+> [!NOTE]
+> The API is hosted on Render's free tier, so it may take ~30 seconds to wake up if it hasn't been used recently.
 
 ---
 
