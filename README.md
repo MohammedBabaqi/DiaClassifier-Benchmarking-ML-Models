@@ -97,6 +97,14 @@ _Professional native Streamlit interface featuring intuitive grouping and real-t
 
 ---
 
+## 📄 Technical Documentation
+
+For a deep dive into the methodology, model optimization, and clinical validation of DiaClassifier, please refer to the technical report:
+
+- **[Technical Whitepaper (PDF)](/documents/DiaClassifier_Report.pdf)**: Detailed analysis of SMOTE, model calibration, and benchmarking results.
+
+---
+
 ## 🚀 Getting Started
 
 ### 1. Local Development (Manual)
@@ -126,12 +134,15 @@ docker run -p 8000:8000 -p 8501:8501 diaclassifier
 
 ## 🧬 Data Science Results
 
-The models were evaluated using **Recall**, **Accuracy**, and **ROC-AUC Score**. The `XGBoost (Medical++ Optimized)` model emerged as the top performer.
+The models were evaluated using **Recall**, **Accuracy**, and **ROC-AUC Score**. The `XGBoost` model emerged as the top performer for **Recall**, which is critical for medical screening.
 
-| Model                   | Accuracy | Recall | F1-Score | ROC-AUC |
-| :---------------------- | :------: | :----: | :------: | :-----: |
-| **XGBoost (Optimized)** |  0.833   | 0.833  |  0.833   |  0.833  |
-| Logistic Regression     |  0.800   | 0.750  |  0.774   |  0.800  |
+| Model               | Accuracy | Recall | F1-Score | ROC-AUC |
+| :------------------ | :------: | :----: | :------: | :-----: |
+| **XGBoost**         |  0.688   | 0.832  |  0.426   |  0.822  |
+| Logistic Regression |  0.732   | 0.763  |  0.442   |  0.818  |
+| SVC                 |  0.727   | 0.770  |  0.440   |  0.818  |
+| Random Forest       |  0.839   | 0.418  |  0.419   |  0.816  |
+| Decision Tree       |  0.829   | 0.407  |  0.399   |  0.789  |
 
 ---
 
