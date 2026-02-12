@@ -57,7 +57,10 @@ The project is architected as a decoupled micro-service environment:
 
 1.  **Analytical Engine**: A high-performance XGBoost classifier optimized for class imbalance (SMOTE) and calibrated (`CalibratedClassifierCV`) for reliable probability estimation.
 2.  **FastAPI Backend**: A production-ready REST API built with Pydantic for strict data validation and efficient model orchestration.
-3.  **Streamlit Dashboard**: A "Pro-Grade" native UI featuring intuitive input grouping, real-time metrics, and visual probability delta analysis.
+3.  **Streamlit Dashboard**: A "Pro-Grade" native UI featuring:
+    - **Categorical Feature Selection**: Intuitive selectboxes for Age, Education, and Income (no numeric codes required).
+    - **Risk Assessment Gauge**: Real-time visual tracking of probability relative to the diagnostic threshold.
+    - **Dynamic Metrics**: Clear probability delta analysis and status indicators.
 4.  **Containerization**: Fully Dockerized stack with professional folder organization and Docker Compose support.
 
 ---

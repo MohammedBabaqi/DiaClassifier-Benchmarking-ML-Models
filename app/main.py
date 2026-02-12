@@ -102,7 +102,29 @@ with tab1:
                 smoker = st.radio("Smoker?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No", horizontal=True)
                 hvy_alcohol = st.radio("Heavy Alcohol Consumption?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No", horizontal=True)
                 phys_activity = st.checkbox("Physical activity in past 30 days?", value=True)
-                gen_hlth = st.slider("General Health Rating", 1, 5, 3, help="1: Excellent ... 5: Poor")
+                # Define mappings
+                gen_hlth_map = {1: "Excellent", 2: "Very Good", 3: "Good", 4: "Fair", 5: "Poor"}
+                age_map = {
+                    1: "18-24", 2: "25-29", 3: "30-34", 4: "35-39", 5: "40-44",
+                    6: "45-49", 7: "50-54", 8: "55-59", 9: "60-64", 10: "65-69",
+                    11: "70-74", 12: "75-79", 13: "80+"
+                }
+                edu_map = {
+                    1: "No School", 2: "Elementary", 3: "Some High School",
+                    4: "High School Graduate", 5: "Some College", 6: "College Graduate"
+                }
+                income_map = {
+                    1: "< $10k", 2: "$10k–15k", 3: "$15k–20k", 4: "$20k–25k",
+                    5: "$25k–35k", 6: "$35k–50k", 7: "$50k–75k", 8: "> $75k"
+                }
+
+                gen_hlth = st.selectbox(
+                    "General Health Rating", 
+                    options=list(gen_hlth_map.keys()),
+                    format_func=lambda x: gen_hlth_map[x],
+                    index=2,
+                    help="How you rate your overall health"
+                )
                 ment_hlth = st.number_input("Days of poor Mental Health (last 30)", 0, 30, 0)
                 phys_hlth = st.number_input("Days of poor Physical Health (last 30)", 0, 30, 0)
 
@@ -112,10 +134,26 @@ with tab1:
                 bmi = st.number_input("BMI (Body Mass Index)", 10.0, 70.0, 25.0)
                 sex = st.radio("Sex", [0, 1], format_func=lambda x: "Female" if x == 0 else "Male", horizontal=True)
             with d_col2:
-                age = st.slider("Age Group Category", 1, 13, 5, help="1=18-24, ... 13=80+")
-                education = st.slider("Education Level", 1, 6, 4)
+                age = st.selectbox(
+                    "Age Group", 
+                    options=list(age_map.keys()), 
+                    format_func=lambda x: age_map[x],
+                    index=4,
+                    help="Select your age range"
+                )
+                education = st.selectbox(
+                    "Education Level", 
+                    options=list(edu_map.keys()), 
+                    format_func=lambda x: edu_map[x],
+                    index=3
+                )
             with d_col3:
-                income = st.slider("Income Level", 1, 8, 5)
+                income = st.selectbox(
+                    "Annual Income Level", 
+                    options=list(income_map.keys()), 
+                    format_func=lambda x: income_map[x],
+                    index=4
+                )
 
         # Form Submit
         submitted = st.form_submit_button("� RUN ANALYSIS", use_container_width=True)
@@ -170,7 +208,22 @@ with tab1:
                         delta=f"{delta_val:+.2f} relative to threshold",
                         delta_color="inverse" if pred == 1 else "normal"
                     )
+                    
+                    # Custom Enhanced Progress Bar with Threshold Marker
+                    bar_color = "#ff4b4b" if pred == 1 else "#26a69a"
+                    threshold_pos = round(threshold * 100, 1)
+                    prob_pos = round(prob * 100, 1)
+                    
+                    # Native Streamlit Visualization
                     st.progress(prob)
+                    
+                    # Informational labels using native components
+                    st.info(f"""
+                    **Assessed Risk Level:** {risk_pct:.1f}%  
+                    **Diagnostic Threshold:** {threshold * 100:.1f}%  
+                    *Status: {'Risk Detected' if pred == 1 else 'Low Risk Profile'}*
+                    """)
+                    
                     st.caption(f"Engine used optimized decision threshold: **{threshold:.4f}**")
 
             else:
